@@ -1,0 +1,6 @@
+spring:
+   profiles: test
+doge:
+  wow: 4
+  such: so
+  very: true
