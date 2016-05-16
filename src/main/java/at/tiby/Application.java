@@ -19,6 +19,7 @@ public class Application implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) {
+		System.out.println(">>!@!@> " + args.length);
 		System.out.println("AutoConfiguration should have wired up our stuff");
         System.out.println("Let's see if we are doge-worthy...");
         if (dogeService.requiresDogeness()) {

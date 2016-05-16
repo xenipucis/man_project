@@ -1,7 +1,0 @@
-spring:
-  profiles: dev
-
-doge:
-  wow: 10
-  such: so
-  very: true
