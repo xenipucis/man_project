@@ -16,7 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 
 @ActiveProfiles("test")
-@SpringApplicationConfiguration(TestConfig.class)
+//@SpringApplicationConfiguration(TestConfig.class)
+@ContextConfiguration(loader=SpringApplicationContextLoader.class, classes = TestApplication.class)
 @IntegrationTest
 class SampleTestSpec extends spock.lang.Specification {
 
