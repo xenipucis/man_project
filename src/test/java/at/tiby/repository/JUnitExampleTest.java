@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.util.List;
+import java.util.Set;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,7 +28,7 @@ public class JUnitExampleTest {
 
 	@Test
 	public void findAllUsers() {
-		List<User> users = userRepository.findAll();
+		Set<User> users = userRepository.findAll();
 		assertNotNull(users);
 		assertTrue(userRepository != null);
 	}

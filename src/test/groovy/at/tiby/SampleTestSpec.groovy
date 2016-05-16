@@ -13,17 +13,17 @@ import at.tiby.repository.DogeRepository
 import org.springframework.beans.factory.annotation.Autowired;
 
 
-//@ActiveProfiles("test")
-//@SpringApplicationConfiguration(TestApplication.class)
-//@IntegrationTest
+@ActiveProfiles("test")
+@SpringApplicationConfiguration(TestApplication.class)
+@IntegrationTest
 class SampleTestSpec extends spock.lang.Specification {
 
 	@Autowired
-	DogeRepository dogeRepository;// = new TestDogeRepository();
+	DogeRepository dogeRepository;
 	
-	//def "some test method"() {
-	//	expect:
-	//		2 == 2
-	//		dogeRepository
-	//}
+	def "some test method"() {
+		expect:
+			2 == 2
+			dogeRepository
+	}
 }

@@ -55,7 +55,7 @@ class DbTestSpec extends spock.lang.Specification {
 	
 	def "find all users"() {
 		when: "lookup for all users in db"
-			List<User> users = userRepository.findAll();
+			Set<User> users = userRepository.findAll();
 		then: "we have users"
 			users
 			!users.isEmpty()

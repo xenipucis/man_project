@@ -1,12 +1,12 @@
 package at.tiby.repository;
 
-import java.util.List;
+import java.util.Set;
 
 import at.tiby.model.User;
 
 public interface IUserRepository {
 
-	List<User> findAll();
+	Set<User> findAll();
 	
 	User findUserById(int id);
 	

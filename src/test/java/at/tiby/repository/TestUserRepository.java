@@ -1,6 +1,6 @@
 package at.tiby.repository;
 
-import java.util.List;
+import java.util.Set;
 
 import org.springframework.test.context.ActiveProfiles;
 
@@ -10,7 +10,7 @@ import at.tiby.model.User;
 public class TestUserRepository extends UserRepository {
 
 	@Override
-	public List<User> findAll() {
+	public Set<User> findAll() {
 		return super.findAll();
 	}
 

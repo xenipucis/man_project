@@ -5,7 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -24,15 +25,60 @@ public class UserRepository implements IUserRepository {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
+	
 	@Transactional(readOnly=true)
-	public List<User> findAll() {
-		return jdbcTemplate.query("select * from users", new UserRowMapper());
+	public Set<User> findAll() {
+		final String SELECT_ALL_USERS = "select * from users";
+		return jdbcTemplate.query(SELECT_ALL_USERS,
+				new UserRowMapper()).parallelStream().collect(Collectors.toSet());
 	}
 	
+	
+	/*
+	@Transactional(readOnly=true)
+	public Set<User> findAll() {
+		final String SELECT_ALL_USERS = "select * from users";
+		return JdbcStreams.streamQuery(jdbcTemplate
+				, SELECT_ALL_USERS
+				, stream -> stream
+				            .map(srs -> User
+								.builder()
+								.id(srs.getInt("id"))
+								.name(srs.getString("name"))
+								.email(srs.getString("email"))
+								.build()
+							)
+			    .collect(Collectors.toSet())
+			    );
+		
+		
+	}
+	*/
+	
+	/*
 	@Transactional(readOnly=true)
 	public User findUserById(int id) {
 		return jdbcTemplate.queryForObject("select * from users where id = ?"
 				, new Object[]{id}, new UserRowMapper());
+	}*/
+	
+	
+	
+	
+	@Transactional(readOnly=true)
+	public User findUserById(final int id) {
+		final String SELECT_USER_BY_ID = "select * from users where id = ?";
+		return jdbcTemplate.queryForObject(
+				SELECT_USER_BY_ID
+				, (rs, rowNum) -> {
+					return User
+							.builder()
+							.id(rs.getInt("id"))
+							.name(rs.getString("name"))
+							.email(rs.getString("email"))
+							.build();
+				},
+				id);
 	}
 	
 	public User create(final User user) {
@@ -53,6 +99,7 @@ public class UserRepository implements IUserRepository {
 		user.setId(newUserId);
 		return user;
 	}
+
 	
 	class UserRowMapper implements RowMapper<User> {
 		@Override
@@ -65,4 +112,5 @@ public class UserRepository implements IUserRepository {
 			return user;
 		}
 	}
+	
 }
