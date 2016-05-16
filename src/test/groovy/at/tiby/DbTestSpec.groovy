@@ -6,18 +6,20 @@ import at.tiby.repository.UserRepository
 import spock.lang.Shared;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotNull;
 
-import org.junit.Test;
+import org.junit.Test
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.SpringApplicationContextLoader;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @ActiveProfiles("test")
-//@SpringApplicationConfiguration(TestConfig.class)
-@ContextConfiguration(loader=SpringApplicationContextLoader.class, classes = TestApplication.class)
+@SpringApplicationConfiguration(TestApplication.class)
 @IntegrationTest
 class DbTestSpec extends spock.lang.Specification {
 
@@ -36,7 +38,11 @@ class DbTestSpec extends spock.lang.Specification {
 	
 	def "create user"() {
 		given: "A new User" 
-			User user = new User(name: "mumu", email: "mumu@yahoo.com")
+			User user = User
+							.builder()
+							.name("mumu")
+							.email("mumu@yahoo.com")
+							.build() 
 		expect: "we have userRepository not null"
 			userRepository
 		when: "save user in database"

@@ -10,7 +10,7 @@ import at.tiby.repository.TestDogeRepository;
 import at.tiby.repository.TestUserRepository;
 import at.tiby.repository.IUserRepository;
 
-@Profile("test")
+//@Profile("test")
 @SpringBootApplication
 public class TestApplication {
 
